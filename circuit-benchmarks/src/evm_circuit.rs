@@ -59,8 +59,14 @@ mod evm_circ_benches {
         poly::commitment::{Params, ParamsVerifier},
         transcript::{Blake2bRead, Blake2bWrite, Challenge255},
     };
+    use halo2ecc::arith::code::{FieldCode, PointCode};
+    use halo2ecc::verify::halo2::verify::IVerifierParams;
+    use halo2ecc::verify::plonk::bn_to_field;
+    use num_bigint::BigUint;
+    use pairing::arithmetic::CurveAffine;
     use pairing::bn256::{Bn256, Fr, G1Affine};
     use rand::SeedableRng;
+    use rand_pcg::Pcg32;
     use rand_xorshift::XorShiftRng;
     use std::env::var;
 
@@ -110,8 +116,38 @@ mod evm_circ_benches {
         let mut verifier_transcript = Blake2bRead::<_, _, Challenge255<_>>::init(&proof[..]);
         let strategy = SingleVerifier::new(&verifier_params);
 
+        use halo2ecc::verify::halo2::verify::*;
+
+        let params: Params<G1Affine> = Params::<G1Affine>::unsafe_setup_rng::<Bn256, _>(
+            verifier_params.k,
+            Pcg32::seed_from_u64(42),
+        );
+        let params_verifier: ParamsVerifier<Bn256> = params.verifier(DEGREE * 2).unwrap();
+
+        let fc = FieldCode::<<G1Affine as CurveAffine>::ScalarExt>::default();
+        let pc = PointCode::<G1Affine>::default();
+
+        let zero = bn_to_field::<Fr>(&BigUint::from_bytes_be(b"0"));
+
         // Bench verification time
         let start3 = start_timer!(|| "EVM Proof verification");
+
+        let param = VerifierParams::from_transcript(
+            &fc,
+            &pc,
+            &mut (),
+            zero,
+            zero,
+            zero,
+            &[&[]],
+            pk.get_vk(),
+            &params_verifier,
+            &mut verifier_transcript,
+        )
+        .unwrap();
+        param.queries(&fc, &mut ()).unwrap();
+
+        /*
         verify_proof(
             &verifier_params,
             pk.get_vk(),
@@ -120,6 +156,8 @@ mod evm_circ_benches {
             &mut verifier_transcript,
         )
         .unwrap();
+        */
+
         end_timer!(start3);
     }
 }

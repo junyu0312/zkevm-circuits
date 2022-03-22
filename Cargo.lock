@@ -478,10 +478,13 @@ dependencies = [
  "eth-types",
  "ff 0.11.0",
  "halo2_proofs",
+ "halo2ecc",
  "itertools",
  "keccak256",
+ "num-bigint",
  "pairing_bn256",
  "rand",
+ "rand_pcg",
  "rand_xorshift",
  "zkevm-circuits",
 ]
@@ -1749,7 +1752,7 @@ checksum = "eabb4a44450da02c90444cf74558da904edde8fb4e9035a9a6a4e15445af0bd7"
 [[package]]
 name = "halo2_proofs"
 version = "0.1.0-beta.1"
-source = "git+https://github.com/appliedzkp/halo2.git?tag=v2022_03_06#90f0487e986a8d7a323ec78e7de5ad8bbeeebbd5"
+source = "git+ssh://git@github.com/junyu0312/halo2.git?branch=export_symbol#7fa6f5f56a7636f42023e30cdcca1bc8a6c1d7e7"
 dependencies = [
  "blake2b_simd",
  "bumpalo",
@@ -1763,6 +1766,26 @@ dependencies = [
  "rayon",
  "subtle",
  "tabbycat",
+]
+
+[[package]]
+name = "halo2ecc"
+version = "0.1.0"
+source = "git+ssh://git@github.com/genfengDog/halo2ecc.git?branch=generic-rec#4596aef73a7c640d493e594ea0b882105b164908"
+dependencies = [
+ "cfg-if 0.1.10",
+ "chrono",
+ "group 0.11.0",
+ "halo2_proofs",
+ "num-bigint",
+ "num-integer",
+ "num-traits",
+ "pairing_bn256",
+ "rand",
+ "rand_core",
+ "rand_pcg",
+ "rand_xorshift",
+ "subtle",
 ]
 
 [[package]]
@@ -2242,6 +2265,7 @@ dependencies = [
  "autocfg",
  "num-integer",
  "num-traits",
+ "rand",
 ]
 
 [[package]]
@@ -2385,7 +2409,7 @@ dependencies = [
 [[package]]
 name = "pairing_bn256"
 version = "0.1.0"
-source = "git+https://github.com/appliedzkp/pairing#230e2c6b84c44e446d97efadc3be233ea610ea00"
+source = "git+https://github.com/appliedzkp/pairing#530f4c0022ed0fa430500e837ac7772e84bb4c2c"
 dependencies = [
  "ff 0.11.0",
  "group 0.11.0",
@@ -2768,6 +2792,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d34f1408f55294453790c48b2f1ebbb1c5b4b7563eb1f418bcfcfdbb06ebb4e7"
 dependencies = [
  "getrandom",
+]
+
+[[package]]
+name = "rand_pcg"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "59cad018caf63deb318e5a4586d99a24424a364f40f1e5778c29aca23f4fc73e"
+dependencies = [
+ "rand_core",
 ]
 
 [[package]]
@@ -4042,3 +4075,8 @@ dependencies = [
  "serde_json",
  "sha3 0.7.3",
 ]
+
+[[patch.unused]]
+name = "halo2_proofs"
+version = "0.1.0-beta.1"
+source = "git+ssh://git@github.com/junyu0312/halo2.git#901f465abb90bfc20ada159e5b13c7b54e8552c6"
