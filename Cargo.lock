@@ -480,11 +480,14 @@ dependencies = [
  "bus-mapping",
  "eth-types",
  "ff 0.11.0",
- "halo2_proofs",
+ "halo2-snark-aggregator",
+ "halo2_proofs 0.1.0-beta.1 (git+https://github.com/junyu0312/halo2.git?branch=export_symbol)",
  "itertools",
  "keccak256",
+ "num-bigint",
  "pairing_bn256",
  "rand",
+ "rand_pcg",
  "rand_xorshift",
  "zkevm-circuits",
 ]
@@ -1636,7 +1639,7 @@ dependencies = [
  "digest 0.7.6",
  "eth-types",
  "ff 0.11.0",
- "halo2_proofs",
+ "halo2_proofs 0.1.0-beta.1 (git+https://github.com/junyu0312/halo2.git?branch=export_symbol)",
  "pairing_bn256",
  "rand",
  "rand_xorshift",
@@ -1765,17 +1768,60 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "eabb4a44450da02c90444cf74558da904edde8fb4e9035a9a6a4e15445af0bd7"
 
 [[package]]
+name = "halo2-snark-aggregator"
+version = "0.1.0"
+source = "git+https://github.com/scroll-tech/halo2-snark-aggregator.git?branch=main#e46727522e7fc0142121ab0319536a1a2b576de3"
+dependencies = [
+ "cfg-if 0.1.10",
+ "chrono",
+ "group 0.11.0",
+ "halo2_proofs 0.1.0-beta.1 (git+ssh://git@github.com/junyu0312/halo2.git?branch=export_symbol)",
+ "num-bigint",
+ "num-integer",
+ "num-traits",
+ "pairing_bn256",
+ "rand",
+ "rand_core",
+ "rand_pcg",
+ "rand_xorshift",
+ "subtle",
+]
+
+[[package]]
 name = "halo2_proofs"
 version = "0.1.0-beta.1"
-source = "git+https://github.com/appliedzkp/halo2.git?tag=v2022_03_06#90f0487e986a8d7a323ec78e7de5ad8bbeeebbd5"
+source = "git+ssh://git@github.com/junyu0312/halo2.git?branch=export_symbol#3f6196fed5a61b7f86eb56848b4193d7a7b830d9"
 dependencies = [
  "blake2b_simd",
  "bumpalo",
  "cfg-if 0.1.10",
  "ff 0.11.0",
  "group 0.11.0",
+ "num-bigint",
+ "num-integer",
+ "pairing_bn256",
+ "poseidon",
+ "rand",
+ "rand_core",
+ "rayon",
+ "subtle",
+]
+
+[[package]]
+name = "halo2_proofs"
+version = "0.1.0-beta.1"
+source = "git+https://github.com/junyu0312/halo2.git?branch=export_symbol#a3f46043370b9f3a3d9ec38a5516ec507d1f77a6"
+dependencies = [
+ "blake2b_simd",
+ "bumpalo",
+ "cfg-if 0.1.10",
+ "ff 0.11.0",
+ "group 0.11.0",
+ "num-bigint",
+ "num-integer",
  "pairing_bn256",
  "plotters",
+ "poseidon",
  "rand",
  "rand_core",
  "rayon",
@@ -2015,7 +2061,7 @@ dependencies = [
  "eth-types",
  "ethers",
  "ff 0.11.0",
- "halo2_proofs",
+ "halo2_proofs 0.1.0-beta.1 (git+https://github.com/junyu0312/halo2.git?branch=export_symbol)",
  "lazy_static",
  "log",
  "pairing_bn256",
@@ -2093,7 +2139,7 @@ name = "keccak256"
 version = "0.1.0"
 dependencies = [
  "eth-types",
- "halo2_proofs",
+ "halo2_proofs 0.1.0-beta.1 (git+https://github.com/junyu0312/halo2.git?branch=export_symbol)",
  "itertools",
  "lazy_static",
  "num-bigint",
@@ -2265,6 +2311,7 @@ dependencies = [
  "autocfg",
  "num-integer",
  "num-traits",
+ "rand",
 ]
 
 [[package]]
@@ -2650,6 +2697,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "poseidon"
+version = "0.1.0"
+source = "git+https://github.com/appliedzkp/poseidon.git#59c2439317930bc24a2a962ed36ba6a8b04e8b4b"
+dependencies = [
+ "group 0.11.0",
+ "pairing_bn256",
+ "subtle",
+]
+
+[[package]]
 name = "ppv-lite86"
 version = "0.2.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2731,7 +2788,7 @@ dependencies = [
  "env_logger",
  "eth-types",
  "ethers-providers",
- "halo2_proofs",
+ "halo2_proofs 0.1.0-beta.1 (git+https://github.com/junyu0312/halo2.git?branch=export_symbol)",
  "log",
  "pairing_bn256",
  "rand",
@@ -2791,6 +2848,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d34f1408f55294453790c48b2f1ebbb1c5b4b7563eb1f418bcfcfdbb06ebb4e7"
 dependencies = [
  "getrandom",
+]
+
+[[package]]
+name = "rand_pcg"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "59cad018caf63deb318e5a4586d99a24424a364f40f1e5778c29aca23f4fc73e"
+dependencies = [
+ "rand_core",
 ]
 
 [[package]]
@@ -4077,7 +4143,7 @@ dependencies = [
  "ethers-core",
  "ff 0.11.0",
  "gadgets",
- "halo2_proofs",
+ "halo2_proofs 0.1.0-beta.1 (git+https://github.com/junyu0312/halo2.git?branch=export_symbol)",
  "hex",
  "itertools",
  "keccak256",
@@ -4092,3 +4158,8 @@ dependencies = [
  "serde_json",
  "sha3 0.7.3",
 ]
+
+[[patch.unused]]
+name = "halo2_proofs"
+version = "0.1.0-beta.1"
+source = "git+https://github.com/junyu0312/halo2.git#901f465abb90bfc20ada159e5b13c7b54e8552c6"
