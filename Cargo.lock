@@ -1752,7 +1752,7 @@ checksum = "eabb4a44450da02c90444cf74558da904edde8fb4e9035a9a6a4e15445af0bd7"
 [[package]]
 name = "halo2_proofs"
 version = "0.1.0-beta.1"
-source = "git+ssh://git@github.com/junyu0312/halo2.git?branch=export_symbol#7fa6f5f56a7636f42023e30cdcca1bc8a6c1d7e7"
+source = "git+ssh://git@github.com/junyu0312/halo2.git?branch=export_symbol#4b5e2729e8cb7e8a3cd4035a4ab0dfd1352695f8"
 dependencies = [
  "blake2b_simd",
  "bumpalo",
@@ -1771,7 +1771,7 @@ dependencies = [
 [[package]]
 name = "halo2ecc"
 version = "0.1.0"
-source = "git+ssh://git@github.com/genfengDog/halo2ecc.git?branch=generic-rec#4596aef73a7c640d493e594ea0b882105b164908"
+source = "git+ssh://git@github.com/genfengDog/halo2ecc.git?branch=generic-rec#b349192d35aa8ba7ca49b1c2a45c1033d016609a"
 dependencies = [
  "cfg-if 0.1.10",
  "chrono",

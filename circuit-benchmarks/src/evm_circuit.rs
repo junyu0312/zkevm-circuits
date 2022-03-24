@@ -54,7 +54,7 @@ mod evm_circ_benches {
     use super::*;
     use crate::bench_params::DEGREE;
     use ark_std::{end_timer, start_timer};
-    use halo2_proofs::plonk::{create_proof, keygen_pk, keygen_vk, verify_proof, SingleVerifier};
+    use halo2_proofs::plonk::{create_proof, keygen_pk, keygen_vk, verify_proof, verify_proof_check, SingleVerifier};
     use halo2_proofs::{
         poly::commitment::{Params, ParamsVerifier},
         transcript::{Blake2bRead, Blake2bWrite, Challenge255},
@@ -62,6 +62,7 @@ mod evm_circ_benches {
     use halo2ecc::arith::code::{FieldCode, PointCode};
     use halo2ecc::verify::halo2::verify::IVerifierParams;
     use halo2ecc::verify::plonk::bn_to_field;
+    use halo2ecc::verify::halo2::verify::{sanity_check_fn};
     use num_bigint::BigUint;
     use pairing::arithmetic::CurveAffine;
     use pairing::bn256::{Bn256, Fr, G1Affine};
@@ -147,16 +148,15 @@ mod evm_circ_benches {
         .unwrap();
         param.queries(&fc, &mut ()).unwrap();
 
-        /*
-        verify_proof(
+        let mut verifier_transcript = Blake2bRead::<_, _, Challenge255<_>>::init(&proof[..]);
+        assert!(verify_proof_check(
             &verifier_params,
             pk.get_vk(),
             strategy,
             &[&[]],
             &mut verifier_transcript,
-        )
-        .unwrap();
-        */
+            |queries| sanity_check_fn(&param, queries),
+        ).is_ok());
 
         end_timer!(start3);
     }
